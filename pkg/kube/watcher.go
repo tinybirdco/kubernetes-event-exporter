@@ -88,7 +88,7 @@ func (e *EventWatcher) isEventDiscarded(event *corev1.Event) bool {
 				Str("event age", eventAge.String()).
 				Str("event namespace", event.Namespace).
 				Str("event name", event.Name).
-				Msg("Event discarded as being older then maxEventAgeSeconds")
+				Msg("Event discarded as being older than maxEventAgeSeconds")
 			e.metricsStore.EventsDiscarded.Inc()
 		}
 		return true

@@ -90,7 +90,7 @@ func TestEventWatcher_EventAge_whenEventCreatedBeforeStartup(t *testing.T) {
 
 	// event is 3m before stratup time -> expect silently dropped
 	assert.True(t, ew.isEventDiscarded(&event1))
-	assert.NotContains(t, output.String(), "Event discarded as being older then maxEventAgeSeconds")
+	assert.NotContains(t, output.String(), "Event discarded as being older than maxEventAgeSeconds")
 	ew.onEvent(&event1)
 	assert.NotContains(t, output.String(), "Received event")
 	assert.Equal(t, float64(0), testutil.ToFloat64(metricsStore.EventsProcessed))
@@ -100,7 +100,7 @@ func TestEventWatcher_EventAge_whenEventCreatedBeforeStartup(t *testing.T) {
 	}
 
 	assert.True(t, ew.isEventDiscarded(&event2))
-	assert.NotContains(t, output.String(), "Event discarded as being older then maxEventAgeSeconds")
+	assert.NotContains(t, output.String(), "Event discarded as being older than maxEventAgeSeconds")
 	ew.onEvent(&event2)
 	assert.NotContains(t, output.String(), "Received event")
 	assert.Equal(t, float64(0), testutil.ToFloat64(metricsStore.EventsProcessed))
@@ -112,7 +112,7 @@ func TestEventWatcher_EventAge_whenEventCreatedBeforeStartup(t *testing.T) {
 	}
 
 	assert.True(t, ew.isEventDiscarded(&event3))
-	assert.NotContains(t, output.String(), "Event discarded as being older then maxEventAgeSeconds")
+	assert.NotContains(t, output.String(), "Event discarded as being older than maxEventAgeSeconds")
 	ew.onEvent(&event3)
 	assert.NotContains(t, output.String(), "Received event")
 	assert.Equal(t, float64(0), testutil.ToFloat64(metricsStore.EventsProcessed))
@@ -140,7 +140,7 @@ func TestEventWatcher_EventAge_whenEventCreatedAfterStartupAndBeforeMaxAge(t *te
 	}
 
 	assert.False(t, ew.isEventDiscarded(&event1))
-	assert.NotContains(t, output.String(), "Event discarded as being older then maxEventAgeSeconds")
+	assert.NotContains(t, output.String(), "Event discarded as being older than maxEventAgeSeconds")
 	ew.onEvent(&event1)
 	assert.Contains(t, output.String(), "test-1")
 	assert.Contains(t, output.String(), "Received event")
@@ -156,7 +156,7 @@ func TestEventWatcher_EventAge_whenEventCreatedAfterStartupAndBeforeMaxAge(t *te
 	}
 
 	assert.False(t, ew.isEventDiscarded(&event2))
-	assert.NotContains(t, output.String(), "Event discarded as being older then maxEventAgeSeconds")
+	assert.NotContains(t, output.String(), "Event discarded as being older than maxEventAgeSeconds")
 	ew.onEvent(&event2)
 	assert.Contains(t, output.String(), "test-2")
 	assert.Contains(t, output.String(), "Received event")
@@ -173,7 +173,7 @@ func TestEventWatcher_EventAge_whenEventCreatedAfterStartupAndBeforeMaxAge(t *te
 	}
 
 	assert.False(t, ew.isEventDiscarded(&event3))
-	assert.NotContains(t, output.String(), "Event discarded as being older then maxEventAgeSeconds")
+	assert.NotContains(t, output.String(), "Event discarded as being older than maxEventAgeSeconds")
 	ew.onEvent(&event3)
 	assert.Contains(t, output.String(), "test-3")
 	assert.Contains(t, output.String(), "Received event")
@@ -199,7 +199,7 @@ func TestEventWatcher_EventAge_whenEventCreatedAfterStartupAndAfterMaxAge(t *tes
 	}
 	assert.True(t, ew.isEventDiscarded(&event1))
 	assert.Contains(t, output.String(), "event1")
-	assert.Contains(t, output.String(), "Event discarded as being older then maxEventAgeSeconds")
+	assert.Contains(t, output.String(), "Event discarded as being older than maxEventAgeSeconds")
 	ew.onEvent(&event1)
 	assert.NotContains(t, output.String(), "Received event")
 	assert.Equal(t, float64(0), testutil.ToFloat64(metricsStore.EventsProcessed))
@@ -212,7 +212,7 @@ func TestEventWatcher_EventAge_whenEventCreatedAfterStartupAndAfterMaxAge(t *tes
 
 	assert.True(t, ew.isEventDiscarded(&event2))
 	assert.Contains(t, output.String(), "event2")
-	assert.Contains(t, output.String(), "Event discarded as being older then maxEventAgeSeconds")
+	assert.Contains(t, output.String(), "Event discarded as being older than maxEventAgeSeconds")
 	ew.onEvent(&event2)
 	assert.NotContains(t, output.String(), "Received event")
 	assert.Equal(t, float64(0), testutil.ToFloat64(metricsStore.EventsProcessed))
@@ -226,7 +226,7 @@ func TestEventWatcher_EventAge_whenEventCreatedAfterStartupAndAfterMaxAge(t *tes
 
 	assert.True(t, ew.isEventDiscarded(&event3))
 	assert.Contains(t, output.String(), "event3")
-	assert.Contains(t, output.String(), "Event discarded as being older then maxEventAgeSeconds")
+	assert.Contains(t, output.String(), "Event discarded as being older than maxEventAgeSeconds")
 	ew.onEvent(&event3)
 	assert.NotContains(t, output.String(), "Received event")
 	assert.Equal(t, float64(0), testutil.ToFloat64(metricsStore.EventsProcessed))
