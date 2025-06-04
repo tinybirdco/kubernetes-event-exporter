@@ -49,6 +49,7 @@ func NewEventWatcher(config *rest.Config, namespace string, MaxEventAgeSeconds i
 		clientset:           clientset,
 	}
 
+	// Register watcher as ResourceEventHandler to process adds, updates, deletes
 	informer.AddEventHandler(watcher)
 	informer.SetWatchErrorHandler(func(r *cache.Reflector, err error) {
 		watcher.metricsStore.WatchErrors.Inc()
@@ -57,11 +58,12 @@ func NewEventWatcher(config *rest.Config, namespace string, MaxEventAgeSeconds i
 	return watcher
 }
 
-func (e *EventWatcher) OnAdd(obj interface{}) {
+func (e *EventWatcher) OnAdd(obj interface{}, isInInitialList bool) {
 	event := obj.(*corev1.Event)
 	e.onEvent(event)
 }
 
+// OnUpdate is called when an existing Event is modified
 func (e *EventWatcher) OnUpdate(oldObj, newObj interface{}) {
 	// Process updates as new events (handles aggregated series)
 	event := newObj.(*corev1.Event)

@@ -3,7 +3,10 @@ package metrics
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"time"
+
+	"log/slog"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/collectors"
@@ -24,25 +27,11 @@ type Store struct {
 	KubeApiReadRequests  prometheus.Counter
 }
 
-// promLogger implements promhttp.Logger
-type promLogger struct{}
-
-func (pl promLogger) Println(v ...interface{}) {
-	log.Logger.Error().Msg(fmt.Sprint(v...))
-}
-
-// promLogger implements the Logger interface
-func (pl promLogger) Log(v ...interface{}) error {
-	log.Logger.Info().Msg(fmt.Sprint(v...))
-	return nil
-}
-
 func Init(addr string, tlsConf string) {
 	// Setup the prometheus metrics machinery
 	// Add Go module build info.
 	prometheus.MustRegister(collectors.NewBuildInfoCollector())
 
-	promLogger := promLogger{}
 	metricsPath := "/metrics"
 
 	// Expose the registered metrics via HTTP.
@@ -86,7 +75,14 @@ func Init(addr string, tlsConf string) {
 	}
 
 	// start up the http listener to expose the metrics
-	go web.ListenAndServe(&metricsServer, &metricsFlags, promLogger)
+	// Start metrics HTTP server using standard library slog logger
+	handler := slog.NewJSONHandler(os.Stderr, nil)
+	logger := slog.New(handler)
+	go func() {
+		if err := web.ListenAndServe(&metricsServer, &metricsFlags, logger); err != nil {
+			log.Error().Err(err).Msg("metrics server failed")
+		}
+	}()
 }
 
 func NewMetricsStore(name_prefix string) *Store {
