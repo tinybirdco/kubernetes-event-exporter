@@ -1,4 +1,4 @@
-module github.com/resmoio/kubernetes-event-exporter
+module github.com/civitatis/kubernetes-event-exporter
 
 go 1.24.0
 

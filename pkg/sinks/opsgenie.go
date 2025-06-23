@@ -2,7 +2,8 @@ package sinks
 
 import (
 	"context"
-	"github.com/resmoio/kubernetes-event-exporter/pkg/kube"
+
+	"github.com/civitatis/kubernetes-event-exporter/pkg/kube"
 	"github.com/opsgenie/opsgenie-go-sdk-v2/alert"
 	"github.com/opsgenie/opsgenie-go-sdk-v2/client"
 )

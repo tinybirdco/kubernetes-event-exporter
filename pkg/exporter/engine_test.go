@@ -1,10 +1,11 @@
 package exporter
 
 import (
-	"github.com/resmoio/kubernetes-event-exporter/pkg/kube"
-	"github.com/resmoio/kubernetes-event-exporter/pkg/sinks"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/civitatis/kubernetes-event-exporter/pkg/kube"
+	"github.com/civitatis/kubernetes-event-exporter/pkg/sinks"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestEngineNoRoutes(t *testing.T) {
