@@ -1,7 +1,20 @@
 # kubernetes-event-exporter
 
-> **Note**: This is an active fork of [Opsgenie Kubernetes Event Exporter](https://github.com/opsgenie/kubernetes-event-exporter)
-since that is not maintained since November 2021. Development is sponsored by [Resmo](https://www.resmo.com).
+## Important Notice
+
+This repository is a fork from [Kubernetes Event Exporter by Resmoio](https://github.com/resmoio/kubernetes-event-exporter) and is not actively maintained. However, it includes significant improvements over the original that users may find beneficial:
+
+* **Enhanced timestamp handling**: Fixes unnecessary "max Event age seconds" errors.
+* **Upgraded Go version**: Updated from Go 1.20 to Go 1.24, incorporating various built-in enhancements.
+* **Updated dependencies (June 2025)**: Resolves critical vulnerabilities, including:
+
+  * CVE-2024-6104 in `github.com/hashicorp/go-retryablehttp`
+  * CVE-2024-45337, CVE-2025-22869 in `golang.org/x/crypto`
+  * CVE-2023-45288, CVE-2025-22870, CVE-2025-22872 in `golang.org/x/net`
+  * CVE-2023-44487 in `google.golang.org/grpc`
+  * CVE-2024-24786 in `google.golang.org/protobuf`
+
+Users are encouraged to leverage these updates for a more secure and reliable experience.
 
 > This tool is presented at [KubeCon 2019 San Diego](https://kccncna19.sched.com/event/6aa61eca397e4ff2bdbb2845e5aebb81).
 
@@ -27,7 +40,7 @@ kubectl create namespace monitoring
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - https://github.com/resmoio/kubernetes-event-exporter?ref=master
+  - https://github.com/civitatis/kubernetes-event-exporter?ref=master
 ```
 
 ### Helm
