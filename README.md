@@ -22,9 +22,24 @@ This tool allows exporting the often missed Kubernetes events to various outputs
 observability or alerting purposes. You won't believe what you are missing.
 
 ## Deployment
+You can check the latest image in our [Packages Section](https://github.com/civitatis/kubernetes-event-exporter/pkgs/container/kubernetes-event-exporter)
+
 
 Head on to `deploy/` folder and apply the YAMLs in the given filename order. Do not forget to modify the
 `deploy/01-config.yaml` file to your configuration needs. The additional information for configuration is as follows:
+### Helm
+
+Please use [Bitnami Chart](https://github.com/bitnami/charts/tree/main/bitnami/kubernetes-event-exporter/) which is 
+comprehensive.
+
+**You need to set our image in the Chart Values. For instance:**
+
+```yaml
+image:
+  registry: ghcr.io
+  repository: civitatis/kubernetes-event-exporter
+  tag: 1.8
+```
 
 ### Kustomize
 
