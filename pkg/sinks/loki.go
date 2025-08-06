@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/tinybirdco/kubernetes-event-exporter/pkg/kube"
@@ -54,15 +55,40 @@ func generateTimestamp() string {
 	return strconv.FormatInt(time.Now().Unix(), 10) + "000000000"
 }
 
+// containsTemplatePattern checks if a string contains Go template syntax like {{ .Field }}
+func containsTemplatePattern(s string) bool {
+	return strings.Contains(s, "{{") && strings.Contains(s, "}}")
+}
+
 func (l *Loki) Send(ctx context.Context, ev *kube.EnhancedEvent) error {
 	eventBody, err := serializeEventWithLayout(l.cfg.Layout, ev)
 	if err != nil {
 		return err
 	}
 	timestamp := generateTimestamp()
+	
+	// Process stream labels, applying templates only to values that contain template syntax
+	processedLabels := make(map[string]string)
+	for k, v := range l.cfg.StreamLabels {
+		// Check if the value contains template syntax
+		if containsTemplatePattern(v) {
+			processed, err := GetString(ev, v)
+			if err != nil {
+				log.Debug().Err(err).Msgf("parse template for stream label failed: %s", v)
+				processedLabels[k] = v
+			} else {
+				log.Debug().Msgf("stream label: {%s: %s}", k, processed)
+				processedLabels[k] = processed
+			}
+		} else {
+			// Use the original value for non-template strings
+			processedLabels[k] = v
+		}
+	}
+	
 	a := LokiMsg{
 		Streams: []promtailStream{{
-			Stream: l.cfg.StreamLabels,
+			Stream: processedLabels,
 			Values: [][]string{{timestamp, string(eventBody)}},
 		}},
 	}
