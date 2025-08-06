@@ -30,6 +30,8 @@ type LokiConfig struct {
 	TLS          TLS                    `yaml:"tls"`
 	URL          string                 `yaml:"url"`
 	Headers      map[string]string      `yaml:"headers"`
+	Username     string                 `yaml:"username"`
+	Password     string                 `yaml:"password"`
 }
 
 type Loki struct {
@@ -74,6 +76,11 @@ func (l *Loki) Send(ctx context.Context, ev *kube.EnhancedEvent) error {
 	}
 
 	req.Header.Set("Content-Type", "application/json")
+
+	// Set basic auth if username and password are provided
+	if l.cfg.Username != "" && l.cfg.Password != "" {
+		req.SetBasicAuth(l.cfg.Username, l.cfg.Password)
+	}
 
 	for k, v := range l.cfg.Headers {
 		realValue, err := GetString(ev, v)
