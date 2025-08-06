@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/civitatis/kubernetes-event-exporter/pkg/kube"
+	"github.com/tinybirdco/kubernetes-event-exporter/pkg/kube"
 	opensearch "github.com/opensearch-project/opensearch-go"
 	opensearchapi "github.com/opensearch-project/opensearch-go/opensearchapi"
 	"github.com/rs/zerolog/log"

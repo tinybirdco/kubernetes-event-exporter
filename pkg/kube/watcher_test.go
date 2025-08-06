@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/civitatis/kubernetes-event-exporter/pkg/metrics"
+	"github.com/tinybirdco/kubernetes-event-exporter/pkg/metrics"
 	lru "github.com/hashicorp/golang-lru"
 	"github.com/prometheus/client_golang/prometheus/testutil"
 	"github.com/rs/zerolog/log"

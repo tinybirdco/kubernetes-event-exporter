@@ -11,7 +11,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/civitatis/kubernetes-event-exporter/pkg/kube"
+	"github.com/tinybirdco/kubernetes-event-exporter/pkg/kube"
 	"github.com/rs/zerolog/log"
 )
 

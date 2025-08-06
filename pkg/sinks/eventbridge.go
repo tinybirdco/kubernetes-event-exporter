@@ -9,7 +9,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/client"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/eventbridge"
-	"github.com/civitatis/kubernetes-event-exporter/pkg/kube"
+	"github.com/tinybirdco/kubernetes-event-exporter/pkg/kube"
 	"github.com/rs/zerolog/log"
 )
 

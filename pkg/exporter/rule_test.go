@@ -3,7 +3,7 @@ package exporter
 import (
 	"testing"
 
-	"github.com/civitatis/kubernetes-event-exporter/pkg/kube"
+	"github.com/tinybirdco/kubernetes-event-exporter/pkg/kube"
 	"github.com/stretchr/testify/assert"
 )
 

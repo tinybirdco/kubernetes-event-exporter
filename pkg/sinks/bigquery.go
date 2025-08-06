@@ -12,8 +12,8 @@ import (
 	"unicode"
 
 	"cloud.google.com/go/bigquery"
-	"github.com/civitatis/kubernetes-event-exporter/pkg/batch"
-	"github.com/civitatis/kubernetes-event-exporter/pkg/kube"
+	"github.com/tinybirdco/kubernetes-event-exporter/pkg/batch"
+	"github.com/tinybirdco/kubernetes-event-exporter/pkg/kube"
 	"github.com/rs/zerolog/log"
 	"google.golang.org/api/option"
 )

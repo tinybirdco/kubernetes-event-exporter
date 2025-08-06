@@ -4,7 +4,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/civitatis/kubernetes-event-exporter/pkg/exporter"
+	"github.com/tinybirdco/kubernetes-event-exporter/pkg/exporter"
 	"github.com/goccy/go-yaml"
 )
 

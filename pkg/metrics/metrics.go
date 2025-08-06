@@ -8,7 +8,7 @@ import (
 
 	"log/slog"
 
-	"github.com/civitatis/kubernetes-event-exporter/pkg/version"
+	"github.com/tinybirdco/kubernetes-event-exporter/pkg/version"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/collectors"
 	"github.com/prometheus/client_golang/prometheus/promauto"

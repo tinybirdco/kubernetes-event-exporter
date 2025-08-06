@@ -4,9 +4,9 @@ import (
 	"context"
 	"sync"
 
-	"github.com/civitatis/kubernetes-event-exporter/pkg/kube"
-	"github.com/civitatis/kubernetes-event-exporter/pkg/metrics"
-	"github.com/civitatis/kubernetes-event-exporter/pkg/sinks"
+	"github.com/tinybirdco/kubernetes-event-exporter/pkg/kube"
+	"github.com/tinybirdco/kubernetes-event-exporter/pkg/metrics"
+	"github.com/tinybirdco/kubernetes-event-exporter/pkg/sinks"
 	"github.com/rs/zerolog/log"
 )
 

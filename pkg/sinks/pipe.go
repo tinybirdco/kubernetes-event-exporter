@@ -6,7 +6,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/civitatis/kubernetes-event-exporter/pkg/kube"
+	"github.com/tinybirdco/kubernetes-event-exporter/pkg/kube"
 )
 
 type PipeConfig struct {

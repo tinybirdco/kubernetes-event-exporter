@@ -1,4 +1,4 @@
-module github.com/civitatis/kubernetes-event-exporter
+module github.com/tinybirdco/kubernetes-event-exporter
 
 go 1.24.0
 

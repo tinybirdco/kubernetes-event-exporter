@@ -22,7 +22,7 @@ This tool allows exporting the often missed Kubernetes events to various outputs
 observability or alerting purposes. You won't believe what you are missing.
 
 ## Deployment
-You can check the latest image in our [Packages Section](https://github.com/civitatis/kubernetes-event-exporter/pkgs/container/kubernetes-event-exporter)
+You can check the latest image in our [Packages Section](https://github.com/tinybirdco/kubernetes-event-exporter/pkgs/container/kubernetes-event-exporter)
 
 
 Head on to `deploy/` folder and apply the YAMLs in the given filename order. Do not forget to modify the
@@ -37,7 +37,7 @@ comprehensive.
 ```yaml
 image:
   registry: ghcr.io
-  repository: civitatis/kubernetes-event-exporter
+  repository: tinybirdco/kubernetes-event-exporter
   tag: 1.8
 ```
 
@@ -55,7 +55,7 @@ kubectl create namespace monitoring
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - https://github.com/civitatis/kubernetes-event-exporter?ref=master
+  - https://github.com/tinybirdco/kubernetes-event-exporter?ref=master
 ```
 
 ### Helm

@@ -3,8 +3,8 @@ package exporter
 import (
 	"testing"
 
-	"github.com/civitatis/kubernetes-event-exporter/pkg/kube"
-	"github.com/civitatis/kubernetes-event-exporter/pkg/sinks"
+	"github.com/tinybirdco/kubernetes-event-exporter/pkg/kube"
+	"github.com/tinybirdco/kubernetes-event-exporter/pkg/sinks"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -196,7 +196,7 @@ func TestSubSubRouteWithDrop(t *testing.T) {
 	assert.False(t, reg.isEventRcvd("any", &ev))
 }
 
-// Test for issue: https://github.com/civitatis/kubernetes-event-exporter/issues/51
+// Test for issue: https://github.com/tinybirdco/kubernetes-event-exporter/issues/51
 func Test_GHIssue51(t *testing.T) {
 	ev1 := kube.EnhancedEvent{}
 	ev1.Type = "Warning"

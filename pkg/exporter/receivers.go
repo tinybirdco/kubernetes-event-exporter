@@ -1,8 +1,8 @@
 package exporter
 
 import (
-	"github.com/civitatis/kubernetes-event-exporter/pkg/kube"
-	"github.com/civitatis/kubernetes-event-exporter/pkg/sinks"
+	"github.com/tinybirdco/kubernetes-event-exporter/pkg/kube"
+	"github.com/tinybirdco/kubernetes-event-exporter/pkg/sinks"
 )
 
 // ReceiverRegistry registers a receiver with the appropriate sink

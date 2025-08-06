@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/civitatis/kubernetes-event-exporter/pkg/metrics"
+	"github.com/tinybirdco/kubernetes-event-exporter/pkg/metrics"
 	lru "github.com/hashicorp/golang-lru"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
