@@ -547,8 +547,20 @@ receivers:
       headers: # optional
         X-Scope-OrgID: tennantID
       streamLabels:
-        foo: bar
+        app: kubernetes-event-exporter
+        environment: production
+        reason: "{{ .Reason }}"  # templated value using event data
+        namespace: "{{ .Namespace }}"  # templated value using event data
       url: http://127.0.0.1:3100/loki/api/v1/push
       username: # optional, for basic authentication
       password: # optional, for basic authentication
+      layout: # optional, for formatting event data
+        message: "{{ .Message }}"
+        reason: "{{ .Reason }}"
+        type: "{{ .Type }}"
+        count: "{{ .Count }}"
+        kind: "{{ .InvolvedObject.Kind }}"
+        name: "{{ .InvolvedObject.Name }}"
 ```
+
+Stream labels can contain either static values (like `app: kubernetes-event-exporter`) or template values (like `reason: "{{ .Reason }}"`). Templates are only applied to values that use the `{{ ... }}` syntax, allowing you to mix static and dynamic values in your labels.
