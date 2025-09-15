@@ -50,7 +50,7 @@ func (o *ObjectMetadataCache) GetObjectMetadata(reference *v1.ObjectReference, c
 	// UID and ResourceVersion are not always present, so we need to check if they exist before using them as cache key.
 	var cacheKey string
 	if reference.UID != "" && reference.ResourceVersion != "" {
-		cacheKey := strings.Join([]string{string(reference.UID), reference.ResourceVersion}, "/")
+		cacheKey = strings.Join([]string{string(reference.UID), reference.ResourceVersion}, "/")
 		if val, ok := o.cache.Get(cacheKey); ok {
 			metricsStore.KubeApiReadCacheHits.Inc()
 			return val.(ObjectMetadata), nil
