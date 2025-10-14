@@ -64,7 +64,20 @@ func (r *ChannelBasedReceiverRegistry) Register(name string, receiver sinks.Sink
 					Str("sink", name).
 					Interface("panic", panicErr).
 					Msg("Sink panic recovered, closing sink")
-				receiver.Close()
+				
+				// Protect against Close() panicking again
+				func() {
+					defer func() {
+						if closeErr := recover(); closeErr != nil {
+							log.Error().
+								Str("sink", name).
+								Interface("panic", closeErr).
+								Msg("Panic during Close() in recovery handler")
+						}
+					}()
+					receiver.Close()
+				}()
+				
 				log.Info().Str("sink", name).Msg("Closed after panic")
 				r.wg.Done()
 			}
