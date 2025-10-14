@@ -26,11 +26,21 @@ func (r *ChannelBasedReceiverRegistry) SendEvent(name string, event *kube.Enhanc
 	ch := r.ch[name]
 	if ch == nil {
 		log.Error().Str("name", name).Msg("There is no channel")
+		return
 	}
 
-	go func() {
-		ch <- *event
-	}()
+	// Use non-blocking send to prevent goroutine buildup
+	select {
+	case ch <- *event:
+		// Event sent successfully
+	default:
+		// Channel is full, drop event and log warning
+		log.Warn().
+			Str("sink", name).
+			Str("event", event.Message).
+			Msg("Channel buffer full, dropping event")
+		r.MetricsStore.SendErrors.Inc()
+	}
 }
 
 func (r *ChannelBasedReceiverRegistry) Register(name string, receiver sinks.Sink) {
@@ -39,7 +49,9 @@ func (r *ChannelBasedReceiverRegistry) Register(name string, receiver sinks.Sink
 		r.exitCh = make(map[string]chan interface{})
 	}
 
-	ch := make(chan kube.EnhancedEvent)
+	// Use buffered channel to prevent blocking during event bursts
+	// Buffer size of 1000 allows handling spikes without goroutine buildup
+	ch := make(chan kube.EnhancedEvent, 1000)
 	exitCh := make(chan interface{})
 
 	r.ch[name] = ch
