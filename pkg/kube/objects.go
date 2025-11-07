@@ -57,6 +57,11 @@ func (o *ObjectMetadataCache) GetObjectMetadata(reference *v1.ObjectReference, c
 		}
 	}
 
+	// If name is empty, we cannot fetch metadata from API
+	if reference.Name == "" {
+		return ObjectMetadata{}, nil
+	}
+
 	var group, version string
 	s := strings.Split(reference.APIVersion, "/")
 	if len(s) == 1 {
