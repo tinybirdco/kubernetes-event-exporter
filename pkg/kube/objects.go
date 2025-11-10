@@ -45,6 +45,11 @@ func NewObjectMetadataProvider(size int) ObjectMetadataProvider {
 }
 
 func (o *ObjectMetadataCache) GetObjectMetadata(reference *v1.ObjectReference, clientset *kubernetes.Clientset, dynClient dynamic.Interface, metricsStore *metrics.Store) (ObjectMetadata, error) {
+	// If name is empty, we cannot fetch metadata from API
+	if reference.Name == "" {
+		return ObjectMetadata{}, nil
+	}
+
 	// ResourceVersion changes when the object is updated.
 	// We use "UID/ResourceVersion" as cache key so that if the object is updated we get the new metadata.
 	// UID and ResourceVersion are not always present, so we need to check if they exist before using them as cache key.
@@ -55,11 +60,6 @@ func (o *ObjectMetadataCache) GetObjectMetadata(reference *v1.ObjectReference, c
 			metricsStore.KubeApiReadCacheHits.Inc()
 			return val.(ObjectMetadata), nil
 		}
-	}
-
-	// If name is empty, we cannot fetch metadata from API
-	if reference.Name == "" {
-		return ObjectMetadata{}, nil
 	}
 
 	var group, version string
